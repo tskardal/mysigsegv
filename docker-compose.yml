@@ -1,0 +1,15 @@
+version: '3'
+services:
+  app:
+    build: .
+    depends_on:
+     - "mysql"
+    volumes:
+      - .:/code
+    privileged: true
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "pwd"
+      MYSQL_DATABASE: "mydb"
