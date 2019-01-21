@@ -10,7 +10,7 @@ docker-compose run app bash
 # build the example code (in main.cpp)
 mkdir -p /code/build
 cd /code/build
-qmake "CONFIG+=DEBUG" ..
+qmake "CONFIG+=debug" ..
 make
 
 # run the result with gdb (in order to see the trace)
@@ -26,14 +26,14 @@ When I run this on my Ubuntu workstation, I get this output:
 ❯ docker-compose run app bash
 Creating network "mysigsegv_default" with the default driver
 Creating mysigsegv_mysql_1 ... done
-root@8a6e5a5899dc:/# mkdir -p /code/build
-root@8a6e5a5899dc:/# cd /code/build/
-root@8a6e5a5899dc:/code/build# qmake "CONFIG+=DEBUG" ..
+root@613f6e670e74:/# mkdir -p /code/build
+root@613f6e670e74:/# cd /code/build
+root@613f6e670e74:/code/build# qmake "CONFIG+=debug" ..
 Info: creating stash file /code/build/.qmake.stash
-root@8a6e5a5899dc:/code/build# make
-g++ -c -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_SQL_LIB -DQT_CORE_LIB -I/code -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtSql -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o main.o ../main.cpp
-g++ -Wl,-O1 -o mysigsegv main.o   -lQt5Sql -lQt5Core -lpthread 
-root@8a6e5a5899dc:/code/build# gdb mysigsegv 
+root@613f6e670e74:/code/build# make
+g++ -c -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC -DQT_DEPRECATED_WARNINGS -DQT_SQL_LIB -DQT_CORE_LIB -I/code -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtSql -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -o main.o ../main.cpp
+g++  -o mysigsegv main.o   -lQt5Sql -lQt5Core -lpthread
+root@613f6e670e74:/code/build# gdb mysigsegv
 GNU gdb (Ubuntu 8.1-0ubuntu3) 8.1.0.20180409-git
 Copyright (C) 2018 Free Software Foundation, Inc.
 License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
@@ -48,9 +48,9 @@ Find the GDB manual and other documentation resources online at:
 <http://www.gnu.org/software/gdb/documentation/>.
 For help, type "help".
 Type "apropos word" to search for commands related to "word"...
-Reading symbols from mysigsegv...(no debugging symbols found)...done.
+Reading symbols from mysigsegv...done.
 (gdb) run
-Starting program: /code/build/mysigsegv 
+Starting program: /code/build/mysigsegv
 [Thread debugging using libthread_db enabled]
 Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
 "innodb_version"  =  "5.7.24"
@@ -72,7 +72,7 @@ __GI___pthread_mutex_lock (mutex=0x20) at ../nptl/pthread_mutex_lock.c:65
 #3  0x00007ffff2d44abb in mysql_real_connect () from /usr/lib/x86_64-linux-gnu/libmysqlclient.so.20
 #4  0x00007ffff332d1b9 in ?? () from /usr/lib/x86_64-linux-gnu/qt5/plugins/sqldrivers/libqsqlmysql.so
 #5  0x00007ffff7ba1f50 in QSqlDatabase::open() () from /usr/lib/x86_64-linux-gnu/libQt5Sql.so.5
-#6  0x00005555555556f5 in connect(QString const&) ()
-#7  0x00005555555552f2 in main ()
+#6  0x000055555555553b in connect (connectionName=...) at ../main.cpp:17
+#7  0x0000555555555964 in main (argc=1, argv=0x7fffffffe768) at ../main.cpp:34
 
 ```
