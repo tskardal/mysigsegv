@@ -1,7 +1,29 @@
 # mysigsegv
-A dummy project to reproduce SIGSEGV in libmysqlclient when reconnecting with QMYSQL
+A dummy project to reproduce SIGSEGV in libmysqlclient when reconnecting with QMYSQL.
 
-To reproduce:
+This issue only seems to be present when connecting to a remote database!
+
+Results when running demo application on Ubuntu 18.10:
+
+* MySQL @ localhost: OK
+* MySQL @ local LAN ip (probably same as connecting to localhost?): OK
+* MySQL @ remote host: SEGFAULT
+
+Running demo application on Ubuntu 18.04 in Docker:
+* MySQL in other Docker container: SEGFAULT
+
+## Reproduce
+
+* First install a MySQL server somewhere (I have it installed on my host OS which is macOS).
+  * I've tested both 5.7 and 8.0
+* Create a empty database and grant access to it
+* Edit the source code (main.cpp) so that mysql connection information is correct
+* Run the application
+* 💥
+
+## Reproduce in Docker
+
+This example uses docker-compose to start both containers and run the demo application.
 
 ```
 # start the containers
