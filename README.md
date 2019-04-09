@@ -23,7 +23,7 @@ Running demo application on Ubuntu 18.04 in Docker:
 
 **Example:** 
 
-Messages before (core dumped) are the result of `SHOW VARIABLES LIKE '%version%'`)
+Messages before (core dumped) are the result of `SHOW VARIABLES LIKE '%version%'`
 
 ```
 mkdir build
