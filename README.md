@@ -21,6 +21,28 @@ Running demo application on Ubuntu 18.04 in Docker:
 * Run the application
 * 💥
 
+**Example:** 
+
+Messages before (core dumped) are the result of `SHOW VARIABLES LIKE '%version%'`)
+
+```
+mkdir build
+cd build/
+qmake ../mysigsegv.pro
+make
+./mysigsegv
+"innodb_version"  =  "8.0.13"
+"protocol_version"  =  "10"
+"slave_type_conversions"  =  ""
+"tls_version"  =  "TLSv1,TLSv1.1,TLSv1.2"
+"version"  =  "8.0.13"
+"version_comment"  =  "Homebrew"
+"version_compile_machine"  =  "x86_64"
+"version_compile_os"  =  "osx10.14"
+"version_compile_zlib"  =  "1.2.11"
+Segmentation fault (core dumped)
+```
+
 ## Reproduce in Docker
 
 This example uses docker-compose to start both containers and run the demo application.
