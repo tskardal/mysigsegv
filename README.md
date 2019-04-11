@@ -23,19 +23,25 @@ CREATE USER testusr@'%' IDENTIFIED BY 'testusr';
 GRANT ALL PRIVILEGES ON testdb.* TO testusr@'%';
 ```
 * Edit the source code (main.cpp) so that mysql connection information is correct
-* Run the application
-* 💥
-
-**Example:**
-
-Messages before (core dumped) are the result of `SHOW VARIABLES LIKE '%version%'`
-
+```
+auto host = "192.168.137.42"; // change this if you used the SQL statements above
+auto user = "testusr";
+auto pwd = "testusr";
+auto dbName = "testdb";
+```
+* Build and run the application
 ```
 mkdir build
 cd build/
 qmake ../mysigsegv.pro
 make
 ./mysigsegv
+```
+* 💥
+
+**Example output:**  
+Messages before (core dumped) are the result of `SHOW VARIABLES LIKE '%version%'`
+```
 "innodb_version"  =  "8.0.13"
 "protocol_version"  =  "10"
 "slave_type_conversions"  =  ""
