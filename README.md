@@ -17,11 +17,16 @@ Running demo application on Ubuntu 18.04 in Docker:
 * First install a MySQL server somewhere (I have it installed on my host OS which is macOS).
   * I've tested both 5.7 and 8.0
 * Create a empty database and grant access to it
+```
+CREATE DATABASE testdb;
+CREATE USER testusr@'%' IDENTIFIED BY 'testusr';
+GRANT ALL PRIVILEGES ON testdb.* TO testusr@'%';
+```
 * Edit the source code (main.cpp) so that mysql connection information is correct
 * Run the application
 * 💥
 
-**Example:** 
+**Example:**
 
 Messages before (core dumped) are the result of `SHOW VARIABLES LIKE '%version%'`
 

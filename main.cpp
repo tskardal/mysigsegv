@@ -3,10 +3,10 @@
 #include <QtSql>
 
 void connect(const QString &connectionName) {
-  auto host = "mysql";
-  auto user = "root";
-  auto pwd = "pwd";
-  auto dbName = "mydb";
+  auto host = "192.168.137.42";
+  auto user = "testusr";
+  auto pwd = "testusr";
+  auto dbName = "testdb";
 
   QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL", connectionName);
   db.setHostName(host);
